@@ -1,0 +1,21 @@
+// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Application {
+  id          Int      @id @default(autoincrement())
+  company     String
+  jobTitle    String
+  dateApplied DateTime
+  status      String   // Enum: "Applied", "Rejected", "Interview", "Success"
+  notes       String   // CHANGED: Removed '?' - now mandatory
+  followUpDate DateTime?
+  createdAt   DateTime @default(now())
+  jobUrl      String   // CHANGED: Removed '?' - now mandatory
+}
